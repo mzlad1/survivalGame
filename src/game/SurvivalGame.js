@@ -492,7 +492,27 @@ class SurvivalGame extends Phaser.Scene {
         alpha: 0.6,
         duration: 1200,
         ease: "Bounce.easeOut",
-      });      
+      });
+
+      // Falling debris
+      for (let i = 0; i < 25; i++) {
+        const d = this.add.rectangle(
+          100 + Math.random() * 600,
+          -20 - Math.random() * 100,
+          6 + Math.random() * 14,
+          6 + Math.random() * 14,
+          Phaser.Math.RND.pick([0x808080, 0x999999, 0x666666, 0x707070]),
+          0.7,
+        );
+        this.tweens.add({
+          targets: d,
+          y: 380 + Math.random() * 80,
+          angle: Math.random() * 360,
+          duration: 1000 + Math.random() * 600,
+          ease: "Quad.easeIn",
+          onComplete: () => d.setAlpha(0.3),
+        });
+      }
     });
 
     // Screen flash
@@ -953,7 +973,7 @@ class SurvivalGame extends Phaser.Scene {
 
     // Instruction bar at bottom
     this.add.rectangle(400, 472, 500, 36, 0x000000, 0.7);
-    this.addArabicText(400, 472, "🎤 استخدم الأزرار أدناه أو تحدث بصوتك", {
+    this.addArabicText(400, 472, "🎤 تحدث بصوتك", {
       fontSize: "14px",
       fill: "#f5c518",
     });
@@ -1494,6 +1514,8 @@ class SurvivalGame extends Phaser.Scene {
       confused.destroy();
       sub.destroy();
       this.gamePhase = "waiting";
+      // Re-enable React controls so the user can use mic/buttons again
+      if (this.updateGameState) this.updateGameState("waiting", "");
     });
   }
 

@@ -163,7 +163,10 @@ function GameScene({ character, onGameComplete, onBackToMenu }) {
       const scene = game.scene.scenes[0];
       if (scene && scene.handleUserChoice) {
         scene.handleUserChoice(choice);
-        setWaitingForInput(false);
+        // Don't disable controls for unclear choices — let the user retry immediately
+        if (choice !== "unclear") {
+          setWaitingForInput(false);
+        }
       }
     }
   }, []);
@@ -417,7 +420,7 @@ function GameScene({ character, onGameComplete, onBackToMenu }) {
 
       {/* Voice & Choice Controls */}
       <div className="voice-controls">
-        <p>🎤 استخدم صوتك أو اختر مباشرة</p>
+        <p>🎤 استخدم صوتك</p>
 
         <button
           className={`record-button ${isRecording ? "recording" : ""}`}
@@ -429,24 +432,6 @@ function GameScene({ character, onGameComplete, onBackToMenu }) {
             ? "🔴 جاري الاستماع... Listening..."
             : "🎤 اضغط للتحدث - Press to Speak"}
         </button>
-
-        {/* Quick choice buttons */}
-        {waitingForInput && (
-          <div className="quick-choices">
-            <button
-              className="choice-btn knock"
-              onClick={() => handleQuickChoice("knock")}
-            >
-              🔨 اطرق - Knock
-            </button>
-            <button
-              className="choice-btn scream"
-              onClick={() => handleQuickChoice("scream")}
-            >
-              📢 اصرخ - Scream
-            </button>
-          </div>
-        )}
 
         {statusMessage && (
           <div
