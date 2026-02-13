@@ -12,7 +12,6 @@ npm start
 ```
 **Test:** Open http://localhost:3000
 
-
 ---
 
 ### ✅ STEP 2: Test on Phone (15 min)
