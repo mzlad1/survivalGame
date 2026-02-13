@@ -369,13 +369,6 @@ function GameScene({ character, onGameComplete, onBackToMenu }) {
     }
   };
 
-  // ---------- Quick-choice shortcuts ----------
-  const handleQuickChoice = (choice) => {
-    sendChoiceToGame(choice);
-    setStatusMessage(`✅ اخترت: ${choice === "knock" ? "الطرق" : "الصراخ"}`);
-    setTimeout(() => setStatusMessage(""), 3000);
-  };
-
   const handleHintClick = () => {
     // Trigger wolf hint inside Phaser scene (plays hint.mp3)
     const game = phaserGameRef.current;
