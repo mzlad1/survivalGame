@@ -151,12 +151,10 @@ function GameScene({ character, onGameComplete, onBackToMenu }) {
   const phaserGameRef = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
-  const [showHint, setShowHint] = useState(false);
   const [gameState, setGameState] = useState("intro"); // intro, playing, gameover, victory
   const [gameMessage, setGameMessage] = useState("");
   const [waitingForInput, setWaitingForInput] = useState(false);
   const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
 
   // Send a choice into the Phaser scene
   const sendChoiceToGame = useCallback((choice) => {
